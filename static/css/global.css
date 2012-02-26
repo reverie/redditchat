@@ -1,0 +1,738 @@
+body
+{
+	font-family: 'helvetica-neue', helvetica, arial, sans-serif;
+	background-color: #def;
+	font-size: 14px;
+    overflow: hidden;
+	color: #333;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+p {
+    margin-bottom:1em;
+}
+
+.float
+{
+	float: left;
+}
+
+a
+{
+	color: #0091FF;
+}
+
+a.target {
+    color:inherit;
+}
+
+hr
+{
+	color: #fff; 
+	background-color: #fff; 
+	border: 1px dotted #666; 
+	border-style: none none dotted;
+	margin: 16px 0px;
+}
+
+.note
+{
+	font-size: .8em;
+	color: #666;
+}
+
+.fakelink {
+	color: #0091FF;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+div#main_container
+{
+	width: 100%;
+}
+
+div#header
+{
+	width: 100%;
+	height: 80px; /* header height */
+    position:relative;
+}
+
+.banner {
+    position:absolute;
+    text-align:center;
+    top:0;
+    width:100%;
+}
+
+.banner .contents {
+    background-color:#F4FF46;
+    color:#444444;
+    font-size:1.5em;
+    padding-right:.6em;
+    padding-left:.6em;
+}
+
+div#header #logo
+{
+    position:absolute;
+    top:8px;
+    left:16px;
+    width: 100px;
+}
+
+div#header ul.nav
+{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	/* padding-top: 2px; ignored by FF? */
+	color: #fff;
+	background-color: #0091FF;
+    height: 18px;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+    border-radius-bottomleft: 10px;
+	padding-top: 2px;
+}
+
+div#header ul.nav li
+{
+	float: left;
+	background: url('../images/navDivider.png') center right no-repeat;
+    padding-left:8px;
+    padding-right:8px;
+}
+
+div#header ul.nav li.last {
+    background: none;
+}
+
+div#header ul.nav li span.content
+{
+    /*
+    float: left;
+    */
+}
+
+div#header ul.nav #about,
+div#header ul.nav #logout
+{
+    cursor:pointer;
+    text-decoration: underline;
+}
+
+div#header ul.nav li img {
+    width: 14px;
+    height: 14px;
+    margin-top: -1px;
+    margin-bottom: -2px;
+}
+
+
+div#header ul.nav li #logout {
+    margin-top: -3px;
+}
+
+div#col-container
+{
+	margin: 2px;
+    margin-bottom: 16px;
+}
+
+#column_adder {
+    position:absolute;
+	display: block;
+	background: url('../images/btnAddSmall.png') top left no-repeat;
+	padding: 6px 0px 0px 60px;
+	height: 30px;
+    /* offset should equal col-container margins */
+    right: 10px;
+	bottom: 0px;
+	margin-bottom: -3px;
+    cursor:pointer;
+    color: black;
+}
+
+div#col-container h1 {
+	font-size: 1.8em;
+	color: #444;
+	font-weight: bold;
+	margin-bottom: 8px;
+/*	font-family: "Impact", "Arial Black", Arial, sans-serif;
+	letter-spacing: .1em;
+	font-style: italic;*/
+}
+
+div#col-container h2
+{
+	font-size: 1.2em;
+	line-height: 1.2em;
+	color: #444;
+	font-weight: bold;
+}
+
+div#col-container div.column
+{
+	float: left;
+	background-color: white;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+    border-radius: 10px;
+    position: relative;
+    width: 1px; /* overridden by JS reRender */
+}
+
+div#col-container div.column div.closer {
+    position: absolute;
+	background: url('../images/btnCloseSmall.png') top left no-repeat;
+    top: 8px;
+    right: 8px;
+	width: 16px;
+	height: 16px;
+    cursor: pointer;
+}
+
+div#col-container div.column div.inner_container
+{
+	margin: 16px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+div#col-container div.column-roomlike div.inner_container {
+    overflow-y:hidden;
+}
+
+/* BEGIN LOGIN/REG */
+div#col-container div.column-login {
+    
+}
+
+div#col-container div.column-login div.inner_container {
+    margin:16px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+div#col-container div.column-login .right
+{
+    float:right;
+}
+
+div#col-container div.column-login div.header
+{
+	margin-top: 15px;
+}
+
+div#col-container div.column-login div.header ul li
+{
+	float: left;
+	-moz-border-radius-topleft: 10px; 
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-left-radius: 10px; 
+	-webkit-border-top-right-radius: 10px;
+	background-color: #e7e7e7;
+	padding: 12px 16px 8px 16px;
+	margin-right: 4px;
+	font-weight: bold;
+}
+
+div#col-container div.column-login div.header ul li.selected
+{
+	background-color: #d5d5d5;
+}
+
+div#col-container div.column-login div.header ul li h1
+{
+	margin: 0px;
+	font-size: 1.4em !important;
+	text-transform: none !important;
+}
+
+div#col-container div.column-login div.header .fakelink
+{
+	color: #999;
+	font-size: 1.4em;
+}
+
+div#col-container div.column-login .login-button {
+    display:block;
+    margin-top:.5em;
+}
+
+img.login-button, .login-button img {
+    /* height: 24px; */
+    width: 154px;
+}
+
+div#col-container div.column-login div.login-reg-content,
+div#col-container div.column-login div.login-login-content
+{
+	background-color: #d5d5d5;
+	padding: 16px;
+	-moz-border-radius-bottomleft: 10px; 
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-bottom-left-radius: 10px; 
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+}
+
+div#col-container div.column-login div.login-reg-content p,
+div#col-container div.column-login div.login-login-content p
+{
+    line-height: 1.2em;
+}
+
+div#col-container div.column-login div.or
+{
+	margin: 1em 0;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+div#col-container div.column-login .errors {
+    display:none;
+    color:red;
+}
+
+div#col-container div.column-login label
+{
+	display: block;
+	text-transform: uppercase;
+	font-size: .7em;
+}
+
+div#col-container div.column-login input.text
+{
+	margin-bottom: 8px;
+}
+
+div#col-container div.column-login input.submit
+{
+	margin-top: 8px;
+	display: block;
+}
+
+div#col-container div.column-login .form-msg {
+    margin-bottom:8px;
+    color: green;
+}
+
+/* END LOGIN/REG */
+
+/* BEGIN PICKER */
+div#col-container div.column-picker .start_a_chat_button {
+    background:none repeat scroll 0 0 #007DF4;
+    border:10px solid #0091FF;
+    color:#EEEEEE;
+    font-size:300%;
+    text-align:center;
+    padding:5px;
+    cursor:pointer;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+    border-radius: 10px;
+    max-width: 400px;
+}
+
+div#col-container div.column-picker .match_options {
+    margin-top:1em;
+    margin-bottom:1em;
+    font-size: 1.2em;
+}
+
+div#col-container div.column-picker .match_options li.disabled label {
+    color: #777;
+}
+
+div#col-container div.column-picker .match_options li .explanation {
+    font-size:.8em;
+    font-style:italic;
+}
+
+div#col-container div.column-picker .match_options li {
+	margin-left: 8px;
+    margin-bottom:0.5em;
+}
+
+div#col-container div.column-picker .match_options .dating_options {
+    margin-left:1em;
+    margin-top:1px;
+    padding:4px 8px;
+
+}
+
+
+div#col-container div.column-picker.disabled {
+    background-color: #333;
+}
+
+div#col-container div.column-picker.disabled div.closer,
+div#col-container div.column-picker.disabled div.inner_container
+{
+	filter: alpha(opacity=10);
+    -moz-opacity: .10;
+    opacity: .10;
+}
+
+div#col-container div.column-picker div.pendingMssg {
+	position: absolute;
+	text-align: center;
+	top: 50px;
+	width: 100%;
+	color: #fff;
+	font-size: 1.8em;
+}
+
+div#col-container div.column-picker div.pendingMssg img.loading {
+	padding: 10px 0px;
+	display: block;
+	width: 220px;
+	margin: 0 auto;
+}
+
+div#col-container div.column-picker div.pendingMssg span.cancel {
+	display: block;
+	background: url('../images/btnClose.png') top left no-repeat;
+	padding: 0px 0px 0px 29px;
+	height: 24px;
+	width: 90px;
+	margin: 0 auto;
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+/*
+div#col-container div.column-picker ul li
+{
+	padding: 1px 0px 0px 24px;
+	margin-bottom: 5px;
+	margin-left: 8px;
+	font-size: 1.2em;
+	background: url('../images/arrow1Small.png') top left no-repeat;
+}
+
+div#col-container div.column-picker .matcher 
+{
+    
+}
+
+div#col-container div.column-picker .active_matcher 
+{
+	color: #0091FF;
+    cursor: pointer;
+}
+
+div#col-container div.column-picker.disabled .active_matcher 
+{
+    cursor: auto;
+}
+
+div#col-container div.column-picker .inactive_matcher 
+{
+    color: #999;
+}
+*/
+
+/* END PICKER */
+
+/* BEGIN ROOM */
+div#col-container div.column-roomlike div.messages,
+div#col-container div.column-roomlike div.send input.text-box
+{
+	box-shadow:inset 0 0 4px #666;
+	-moz-box-shadow:inset 0 0 4px #666;
+    -webkit-box-shadow:inset 0 0 4px #666;
+	background-color: #fff;
+}
+
+
+div#col-container div.column-roomlike div.messages_box {
+    position:relative;
+}
+
+
+div#col-container div.column-roomlike div.messages_box div.room_topbar {
+    padding-top: 2px;
+    position: absolute;
+    top:0;
+    right:0;
+}
+
+div#col-container div.column-roomlike div.messages_box span.room_numonline {
+    background-color: rgba(255, 255, 255, .7);
+}
+
+div#col-container div.column-roomlike div.messages_box span.room_menu {
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, .7);
+    padding: 2px;
+    padding-top: 0;
+    height: 12px;
+    cursor: pointer;
+}
+
+div#col-container div.column-roomlike div.messages_box span.room_menu.active:hover {
+    background: #f3f3f3;
+    border-bottom: 0;
+}
+
+div#col-container div.column-roomlike div.messages_box span.room_menu ul.room_menu_dropdown {
+    position:absolute;
+    right:0;
+    top: 16px; /* title height+padding */
+    display:none;
+    text-align: right;
+    width: 10em;
+    background: #f3f3f3;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+div#col-container div.column-roomlike div.messages_box span.room_menu.active:hover ul.room_menu_dropdown {
+    display:block;
+}
+
+div#col-container div.column-roomlike div.messages_box span.room_menu ul.room_menu_dropdown li {
+    padding-right: 1em;
+}
+
+div#col-container div.column-roomlike div.messages_box span.room_menu ul.room_menu_dropdown li:hover {
+    background:#ccc;
+}
+
+div#col-container div.column-roomlike div.messages
+{
+	padding: 16px;
+	margin-bottom: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+
+div#col-container div.column-roomlike div.messages .chat_welcome {
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+div#col-container div.column-roomlike div.messages .typing {
+    position:absolute;
+    bottom:0;
+    left:0;
+    text-align:center;
+    width:100%;
+    font-style:italic;
+    color:#777777;
+}
+
+div#col-container div.column-roomlike.left div.messages {
+    color: #666;
+    background-color: #ddd;
+}
+
+div#col-container div.column-roomlike div.messages div.presence-msg {
+    color: #999;
+}
+
+div#col-container div.column-roomlike div.messages .username a {
+    color:inherit;
+    text-decoration: none;
+}
+
+/* TEMPORARILY?! make this style only apply to rooms, so that we don't have to do menus in PM columns just yet */
+div#col-container div.column-room div.messages .username-auth.username-them {
+    cursor:pointer;
+}
+
+div#col-container div.column-roomlike div.messages .username-you {
+    color: #008 !important;
+}
+
+div#col-container div.column-roomlike div.messages .username-them {
+    color: blue !important;
+}
+
+div#col-container div.column-roomlike div.messages ul.user-menu {
+    position: absolute;
+    background-color: #666;
+    width: 10em;
+    background: #f3f3f3;
+    border: 1px solid #ccc;
+    display: block;
+}
+
+div#col-container div.column-roomlike div.messages ul.user-menu li.title {
+    text-align: center;
+    font-weight: bold;
+}
+
+div#col-container div.column-roomlike div.messages ul.user-menu li.link {
+    cursor:pointer;
+    padding: 2px;
+}
+
+div#col-container div.column-roomlike div.messages ul.user-menu li.link.disabled {
+    cursor: default;
+    font-style: italic;
+}
+
+div#col-container div.column-roomlike div.messages ul.user-menu li.link:hover {
+    background:#ccc;
+}
+
+/*
+div#col-container div.column-roomlike div.messages .sender-you a {
+    color: blue;
+}
+
+div#col-container div.column-roomlike div.messages .sender-them a {
+    color: #008;
+}
+
+div#col-container div.column-roomlike div.messages .sender a {
+    text-decoration: none;
+}
+
+div#col-container div.column-roomlike div.messages .sender a:hover {
+    text-decoration: underline;
+}
+*/
+
+div#col-container a#global-column-sign-in {
+    
+}
+
+/* END ROOM */
+
+/* BEGIN ROOMPICKER */
+div#col-container div.column-roompicker div.suggestions {
+    font-size:120%;
+    margin-top:3em;
+}
+
+div#col-container div.column-roompicker div.suggestions li {
+    cursor:pointer;
+    /* font-style:italic;*/
+    display:block;
+    text-align:left;
+    border-top:1px solid #ccc;
+    padding:8px;
+    background:#eee;
+    white-space:nowrap; /* prevents ugly overlap */
+}
+
+div#col-container div.column-roompicker div.suggestions li:hover {
+    background:#ddd;
+}
+
+div#col-container div.column-roompicker div.suggestions img.room_icon {
+    float:left;
+    height:40px;
+    margin-right:8px;
+}
+
+/* END ROOMPICKER */
+
+/* BEGIN ABOUT */
+
+div.column-about ul.bulleted_list li { 
+    margin-left:1em;
+    list-style: disc outside none
+}
+
+div.column-about p.q {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+div.column-about ul {
+    margin-bottom: 1.2em;
+}
+
+div.column-about a.target {
+    display:block;
+}
+
+div.column-about a.target.highlight {
+    background-color: #F9FF99;
+}
+
+/* END ABOUT */
+
+/* CONTROLS */
+ul#tab-controls {
+    position: absolute;
+    display: none;
+}
+/* END CONTROLS */
+
+/* FOOTER */
+div#footer {
+    bottom:0;
+    color:#666;
+    font-size:80%;
+    left:0;
+    position:absolute;
+    text-align:center;
+    width:100%;
+}
+
+div#footer a {
+    color:#666;
+}
+/* END FOOTER */
+
+/* MODAL */
+/* Overlay */
+#simplemodal-overlay {background-color:#000; cursor:wait;}
+
+/* Container */
+#simplemodal-container {
+    height:160px; 
+    width:600px; 
+    color:#333; 
+    background-color:#ccc; 
+    border:4px solid #007fff; 
+    padding:1em;
+}
+#simplemodal-container a.modalCloseImg {
+    background:url(/images/btnCloseSmall.png) no-repeat; 
+    width:16px; 
+    height:16px; 
+    display:inline; 
+    z-index:3200; 
+    position:absolute; 
+    top:-8px; 
+    right:-8px; 
+    cursor:pointer;
+}
+#simplemodal-container #basic-modal-content {
+    padding:8px;
+}
+
+/* Specifics+Mine */
+#simplemodal-container h1 {
+    font-size: 120%;
+    margin: 1em;
+}
+
+.url_link_modal .url {
+    width:100%;
+}
+
+/* END MODAL */
+
+.reddit_code {
+    background:none repeat scroll 0 0 white;
+    border:1px solid #CCCCCC;
+    font-family:monospace;
+    padding:0 1em;
+}

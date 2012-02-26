@@ -1,0 +1,55 @@
+> %%%%%%%%%%%%%%%
+> %%% SEDDIT NOTE: this file expects to have the "sayyit.com" and "/project/redditchat/ejabberd_extauth" replaced in a simple string replace
+> %%%              can't use python string interpolation nor jinja-style templates for obvious reasons...
+> %%%%%%%%%%%%%%%
+61c65
+< {hosts, ["localhost"]}.
+---
+> {hosts, ["localhost", "dev.sayyit.com"]}.
+203,219d206
+< %% max_fsm_queue: Enable limiting of lengths of "message queues"
+< %% for outgoing connections. Roughly speaking, each message in such
+< %% queues represents one XML stanza queued to be sent into
+< %% an output stream it is serving.
+< %% The default value is an atom 'undefined' which specifies no limiting.
+< %%
+< %% When specified globally, this option limits the message queue lengths
+< %% for all ejabberd_c2s_in and ejabberd_service listeners,
+< %% as well as for outgoing s2s connections.
+< %%
+< %% This option can also be specified as an option for ejabberd_c2s_in
+< %% and ejabberd_service listeners, in wich case it will override
+< %% the value of the global option.
+< %%
+< {max_fsm_queue, 1000}.
+< 
+< %%
+282c269
+< {auth_method, internal}.
+---
+> %% {auth_method, internal}.
+288,289c275,276
+< %%{auth_method, external}.
+< %%{extauth_program, "/path/to/authentication/script"}.
+---
+> {auth_method, external}.
+> {extauth_program, "/project/redditchat/ejabberd_extauth"}.
+460c447
+< {access, max_user_sessions, [{10, all}]}.
+---
+> {access, max_user_sessions, [{1, all}]}.
+565a553
+>   {mod_http_bind, []},
+581c569,577
+<         {max_users, 500}
+---
+>         {max_users, 500},
+>           {default_room_options, [
+>               %%{allow_change_subj, false},
+>               %%{allow_query_users, true},
+>               %%{allow_private_messages, true},
+>               %%{members_by_default, false},
+>               %%{title, "Seddit chatroom"},
+>               {anonymous, false}
+>           ]}
+

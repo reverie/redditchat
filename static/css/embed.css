@@ -1,0 +1,19 @@
+body {
+    overflow:hidden;
+}
+
+.title {
+    display:none;
+}
+
+.messages {
+    overflow: auto;
+    margin-top: 1em;
+}
+
+div#col-container div.column-roomlike div.messages_box div.room_topbar {
+    padding-top: 2px;
+    position: absolute;
+    top:0;
+    right:0;
+}

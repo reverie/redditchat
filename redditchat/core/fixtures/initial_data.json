@@ -1,0 +1,12 @@
+[ { "fields" : { 
+        "shortname" : "frontpage",
+        "shortname_display" : "frontpage",
+        "created_at" : "2010-05-04 01:42:36",
+        "title" : "Front Page",
+        "updated_at" : "2010-05-05 18:53:32"
+      },
+    "model" : "core.room",
+    "pk" : "81a84c7aa71042c2bee6ac3889708172"
+  }
+]
+

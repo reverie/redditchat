@@ -1,0 +1,7 @@
+<VirtualHost *:{{ DJANGO_PORT }}>
+    ServerName {{ DOMAIN }}
+    ServerAlias *.{{ DOMAIN }}
+	ServerAdmin {{ ADMIN_EMAIL }}
+    Alias /static/ /project/{{ PROJECT_NAME }}/current/static/
+    WSGIScriptAlias / /project/{{ PROJECT_NAME }}/wsgi.py
+</VirtualHost>

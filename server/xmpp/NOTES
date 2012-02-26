@@ -1,0 +1,17 @@
+We had to upgrade to 2.1.10 to get a fix for https://github.com/processone/ejabberd/pull/9
+
+This necessited switching off of the Ubuntu repo to a manual install, which changed config stuff
+
+Old servers should be apt-get purge'd, and all processes terminated.
+
+
+how to build mod_log_chat.beam:
+--------
+svn co https://svn.process-one.net/ejabberd-modules
+cd ejabberd-modules/mod_log_chat/trunk
+./build.sh
+cp ebin/mod_log_chat.beam .... (e.g. /lib/ejabberd/ebin/)
+# Example config is in conf/ejabberd.conf.sample
+# (be sure to create the log file's directory)
+
+(and likewise for mod_muc_admin.beam)

@@ -1,0 +1,7 @@
+MAILTO=you@gmail.com
+
+# TODO: templatize
+RUN_SCRIPT=/project/redditchat/current/run_script.sh
+
+*/5   *   *   *   *   $RUN_SCRIPT set_room_affiliations.py
+*/5   *   *   *   *   $RUN_SCRIPT crawl_reddit.py

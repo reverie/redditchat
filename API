@@ -1,0 +1,82 @@
+This file describes JSON schemas for data passed around client-side
+
+/////////////////////////////
+User
+ - Sent to client from getauth
+ - Stored in JS `User` class
+/////////////////////////////
+None/null (not logged in) OR
+{
+    remote_id: str,
+}
+
+/////////////////////////////
+Data Container:
+/////////////////////////////
+{
+    type: str, ('message', 'leave', 'reveal', 'presence', 'error')
+    value: <Message>, <Leave>, <Typing>, <Reveal>, <Presence>, <Error>
+}
+
+/////////////////////////////
+Message (Room)
+/////////////////////////////
+{
+    room_id: str,
+    content: str, // what they're saying
+    delayed: bool, // whether this is a "get scrollback on connect" msg
+    nickname: str, // the XMPP nickname of the sender (resource)
+    sender (optional, required if delayed): {
+        is_you: bool,
+        remote_id: str,
+    }
+}
+
+/////////////////////////////
+Message (PM)
+/////////////////////////////
+{
+    content: str, // what they're saying
+    delayed: bool, // whether this is a "get scrollback on connect" msg
+    sender: {
+        is_you: bool,
+        remote_id: str,
+    }
+}
+
+/////////////////////////////
+Presence
+/////////////////////////////
+{
+    user: str, // Packed user, Guest23532532 or user_fb_23532_Andrew_Badr
+    nickname: str, // XMPP nickname/resource
+    value: bool, // true for joining, false for leaving
+    affiliation (opt): str, // XMPP affiliation
+    role (opt): str, // XMPP role
+    newCreated (opt): bool, // We just created this room
+    banned (opt): bool, // user got banned
+}
+
+/////////////////////////////
+Room 
+ - Passed around client-side
+/////////////////////////////
+{
+    id: str, // IDENTICAL to shortname for historical reasons :)
+    shortname: str,
+    shortname_display: str (optional),
+    title: str (optional)
+    image_url: str (optional) // subreddit logo URL
+}
+
+
+/////////////////////////////
+Error:
+/////////////////////////////
+{
+
+    // See http://xmpp.org/extensions/xep-0086.html
+    code: int, // "Legacy error code"
+    condition: str,  // "XMPP error condition"
+    text: str, // Text explanation of event
+}

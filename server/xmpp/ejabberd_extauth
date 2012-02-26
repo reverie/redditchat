@@ -1,0 +1,187 @@
+#!/usr/bin/python
+
+
+# this is an extauth script for use with ejabberd.
+# it uses a binary protocol for communicating via stdin/stdout
+# see ejabberd.jabber.ru/extauth for more examples
+# this script uses the postgresql-database from our django mailadmin app
+# for authentification
+# see http://einfachkaffee.de/svn/mails/trunk for details
+# this script totally relies on the views we created in postgresql for our
+# db to function. So, unless you're installing all of this app or are willing
+# to rewrite the SQL, this is probably useless to you.
+#
+#
+# Author: Lukas Kolbe <lukas@einfachkaffee.de>
+
+
+####### Set up virtualenv and error logging
+import sys, os, site
+sys.stderr = open('/var/log/ejabberd/extauth_err.log', 'a')
+sys.path.insert(0, '/project/redditchat/current')
+site.addsitedir('/envs/redditchat/lib/python2.7/site-packages/')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'redditchat.settings'
+
+##### As you were...
+
+import base64
+import logging
+import json
+import urllib3
+from struct import pack, unpack
+
+from redditchat.common import tornado_cookies
+from redditchat.core.cookies import USER_INFO_COOKIE
+
+# ejabberd starts one instance for each domain it's serving, so I needed
+# a way to distinguish the logfiles. pid in the filename might not be a 
+# good idea, though ...
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(levelname)s %(message)s',
+                    filename='/var/log/ejabberd/extauth.log',
+                    filemode='a')
+logging.info('extauth script started, waiting for ejabberd requests')
+
+http = urllib3.PoolManager(headers={'User-Agent': 'Seddit.com - contact you@gmail.com'})
+# XXX TODO: replace localhost with templatized host
+url = 'http://127.0.0.1/d/internal_auth/'
+
+class EjabberdInputError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+def genanswer(bool):
+    answer = 0
+    if bool:
+        answer = 1
+    token = pack('>hh', 2, answer)
+    return token 
+    
+def ejabberd_out(bool):
+    logging.debug("Ejabberd gets: %s" % bool)
+    token = genanswer(bool)
+    logging.debug("sent bytes: %#x %#x %#x %#x" % (ord(token[0]), ord(token[1]), ord(token[2]), ord(token[3])))
+    sys.stdout.write(token)
+    sys.stdout.flush()
+
+def ejabberd_in():
+    logging.debug("trying to read 2 bytes from ejabberd:")
+    try:
+        input_length = sys.stdin.read(2)
+    except IOError:
+        logging.debug("ioerror")
+    if len(input_length) is not 2:
+        logging.debug("ejabberd sent us wrong things!")
+        raise EjabberdInputError('Wrong input from ejabberd!')
+    logging.debug('got 2 bytes via stdin')
+    
+    (size,) = unpack('>h', input_length)
+    return sys.stdin.read(size).split(':')
+    
+def log_success(method, username, server, success):
+    if success:
+        logging.info("%s successful for %s@%s" % (method, username, server))
+    else:
+        logging.info("%s unsuccessful for %s@%s" % (method, username, server))
+
+
+def _cookie_auth(username, password):
+    password = password.replace('"', '') #the password ('s_mu_info' cookie) seems to have extra quotes in it
+    cookie_is_valid = tornado_cookies.validate_cookie(USER_INFO_COOKIE, password)
+    if not cookie_is_valid:
+        return False
+    cookie_content = password.split('|')[0] # password is e.g. YXV0aCw1LF91bmRlcnNfdGVzdF8=|1327284435|52b1983041a925bc66ba39dcc93a6ff0d40e1722
+    _, _, cookie_username = base64.b64decode(cookie_content).split(',', 2) # decoded value is e.g. 'auth,5,_unders_test_'
+    usernames_match = username.lower() == cookie_username.lower()
+    if not usernames_match:
+        return False
+    return True
+
+def _db_auth(username, password):
+    params = {
+        'username': username,
+        'password': password
+    }
+    r = http.request('POST', url, params)
+    if r.status != 200:
+        logging.debug('internal_auth call got error %s on url %s:' % (r.status, url))
+        return False
+    logging.debug('internal_auth call succeeded for %s' % username)
+    return json.loads(r.data.strip())
+
+def auth(username, server, password):
+    logging.info("%s@%s wants authentication with %s" % (username, server, password))
+    if username.startswith("guest"):
+        # Read-only members. (Their messages are filtered out client-side.)
+        return True
+    result = _cookie_auth(username, password) or _db_auth(username, password)
+    logging.info("%s@%s authentication validation result: %s" % (username, server, result))
+    return result
+
+def isuser(username, server):
+    return True
+    #logging.debug("do we know %s@%s?" % (username, server))
+    #result = dbexec("""SELECT COUNT(full_address) FROM xmpp_user
+    #                   WHERE address=%s AND "domain"=%s;""",
+    #                   [username, server])
+    #if result is not None and result[0][0] == 1:
+    #    return True
+    #else:
+    #    return False
+
+def setpass(username, server, newpassword):
+    return False
+    #newpw_crypted = make_pw(newpassword)
+    #logging.debug("setpass for %s@%s" % (username, server))
+    #dbexec("""UPDATE xmpp_user 
+    #    SET password=%s 
+    #    WHERE address=%s AND "domain"=%s""",
+    #    [newpw_crypted, username, server])
+
+    #result = dbexec("""SELECT count(full_address)
+    #    FROM xmpp_user 
+    #    WHERE password=%s AND address=%s AND "domain"=%s""",
+    #    [newpw_crypted, username, server])
+    #    
+    ## this doesn't currently work ... false is always returned
+    #if result is not None and result[0][0] is 1:
+    #    logging.debug("password change for %s@%s successful" % (username, server))
+    #    return True
+    #else:
+    #    logging.debug("password change for %s@%s not successful" % (username, server))
+    #    return False
+
+# this is our main-loop. I hate infinite loops.
+while True:
+    logging.debug("start of infinite loop")
+
+    try: 
+        data = ejabberd_in()
+    except EjabberdInputError, inst:
+        logging.info("Exception occured: %s", inst)
+        break
+
+    logging.debug('Method: %s' % data[0])
+    success = False
+    
+    if data[0] == "auth":
+        success = auth(data[1], data[2], data[3])
+        ejabberd_out(success)
+        log_success("auth", data[1], data[2], success)
+
+    elif data[0] == "isuser":
+        success = isuser(data[1], data[2])
+        ejabberd_out(success)
+        log_success("isuser", data[1], data[2], success)
+
+    elif data[0] == "setpass":
+        success = setpass(data[1], data[2], data[3])
+        ejabberd_out(success)
+        log_success("setpass", data[1], data[2], success)
+      
+    logging.debug("end of infinite loop")
+
+logging.info('extauth script terminating')
+

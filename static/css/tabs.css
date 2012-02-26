@@ -1,0 +1,61 @@
+div#main_container {
+    position: relative;
+}
+
+/*
+ * Javascript target:
+ * 
+div#col-container {
+    margin-left: -- see ColumnManager.js
+}
+*/
+
+/* CONTROLS */
+ul#tab-controls {
+    display: block;
+    width: 0px; /* See ColumnManager.js TABS_WIDTH for Javascript target width */
+    position: absolute;
+    left: 0px;
+    top: 80px; /* header height */
+    background-color: #e7e7e7;
+    overflow-x:hidden;
+    overflow-y:auto;
+    border-bottom:16px solid #e7e7e7;
+    -moz-border-radius-bottomright:4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-radius-bottomright: 4px;
+}
+
+ul#tab-controls li {
+    padding: 0px;
+    cursor:pointer;
+}
+
+ul#tab-controls li span {
+    /* width: 112px; */
+    padding: 16px 16px 12px 16px;
+    display: block;
+    background-color: #e7e7e7;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.2em;
+}
+
+ul#tab-controls li span:hover {
+    background-color: white;
+}
+
+ul#tab-controls li span.active {
+    background-color: #0091FF;
+    color: #fff;
+}
+
+ul#tab-controls li span.notify {
+    font-weight: bold;
+}
+
+ul#tab-controls li span.last {
+    border-bottom: none;
+}
+
+/* END CONTROLS */

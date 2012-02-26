@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Users</h2>
+<h3>Daily Count</h3>
+Today: {{users_today}}<br>
+<img src="{{ user_chart_url }}"><br>
+<h3>Running Total</h3>
+All-time: {{users}}<br>
+<img src="{{ user_cum_chart_url }}"><br>
+
+<h2>Chats</h2>
+<h3>Daily Count</h3>
+Today: {{private_rooms_today}}<br>
+<img src="{{ room_chart_url }}"><br>
+<h3>Running Total</h3>
+All-time: {{private_rooms}}<br>
+<img src="{{ room_cum_chart_url }}"><br>
+{% endblock %}

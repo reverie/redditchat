@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8"> 
+        <title>Seddit!</title>
+		<link rel="stylesheet" type="text/css" href="/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="/css/global.css">
+        <link rel="stylesheet" type="text/css" href="/css/tabs.css">
+        <link rel="shortcut icon" href="/images/favicon.ico">
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-16567525-2']);
+          _gaq.push(['_setDomainName', 'seddit.com']);
+          _gaq.push(['_setAllowLinker', true]);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <div id="main_container">
+            <div id="header" class="clearfix">
+                <div id="loading" class="banner">
+                    <span class="contents">Loading...</span>
+                </div>
+                <h1><img id="logo" alt="Seddit" title="Seddit" src="/images/refly/logo_transparent.png"></h1>
+                <ul class="nav clearfix">
+                    <li class="clearfix">
+                        <span class="content" id="user_status">
+                            <span id="logged_in" style="display:none">
+                                Logged in as:
+                                <img id="auth-type-logo" src="/images/favicon.ico">
+                                <span id="auth-username"></span>
+                            </span>
+                            <span id="not_logged_in" style="display:none">
+                                Not logged in
+                                <!-- span id="loginlink">Log in</span -->
+                            </span>
+                        </span>
+                    </li>
+                    <li class="clearfix" id="logout-container" style="display:none"><span class="content"><span id="logout">Logout</span></span></li>
+                    <li class="clearfix" id="num-online" style="display:none">Online</li>
+	                <li class="clearfix last"><span class="content"><span id="about">FAQ</span></span></li>
+                </ul>
+                <div title="Add a new chat room" id="column_adder">Join another room</div>
+            </div>
+			<ul id="tab-controls">
+                <!--
+				<li><a href="javascript:void(0);">&raquo; tab 1</a></li>
+				<li><a href="javascript:void(0);">&raquo; tab 1</a></li>
+				<li><a href="javascript:void(0);" class="active">&raquo; tab 1</a></li>
+				<li><a href="javascript:void(0);">&raquo; tab 1</a></li>
+				<li><a href="javascript:void(0);" class="last">&raquo; tab 1</a></li>
+                -->
+			</ul>
+            <div id="col-container" class="clearfix"></div>
+        </div>
+        <!-- Prototypes for column HTML. Copied by JS. -->
+        <div style="display:none">
+            <div id="col_prototype_login" class="column column-login">
+                <div class="inner_container">
+	                <div class="content">
+                        <h1 class="title">Welcome to Seddit.com</h1>
+                        <h2>Seddit is real-time chat using your Reddit identity. Get started by signing in below.</h2>
+                        <br>
+                        <div class="login-login">
+                            <div class="header">
+								<ul class="clearfix">
+									<li class="selected"><h1>Login</h1></li>
+									<li class="switch-reg" style="cursor:pointer"><span class="fakelink">Sign up</span></li>
+								</ul>
+                                  
+                            </div>
+							<div class="login-login-content">
+                                <p>
+                                Sign in using your existing Reddit.com username and password. Or, if you think I'm going to
+                                steal your account, <span class="switch-reg fakelink">set a password</span> using the auth code system. 
+                                </p>
+	                            <h2 style="margin-bottom:10px">Sign in:</h2>
+                                <form method="get" action="" class="form-login">
+                                    <div class="errors form-errors"></div>
+                                    <div class="errors username-errors"></div>
+                                    <label for="login-username">Username</label>
+                                    <input id="login-username" type="text" class="text" name="username">
+                                    <div class="errors password-errors"></div>
+                                    <label for="login-password">Password</label>
+                                    <input id="login-password" type="password" class="password" name="password">
+                                    <br><br><input type="submit" value="Submit">
+                                    <br>
+                                    <span class="form-msg"></span>
+                                </form>
+							</div>
+                        </div>
+                        <div class="login-reg" style="display:none">
+                            <div class="header">
+								<ul class="clearfix">
+									<li class="switch-login" style="cursor:pointer"><span class="fakelink">Login</span></li>
+									<li class="selected"><h1>Sign up</h1></li>
+								</ul>
+                            </div>
+                            <div class="login-reg-content">
+                                <ol style="margin-left:1em;list-style:decimal outside none">
+                                    <li>
+                                        <p>
+                                        To sign in for the first time, copy and paste this code: 
+                                        </p>
+                                        <p>
+                                        <span class="reddit_code">(Loading...)</span>
+                                        </p>
+                                        <p>
+                                        ...and include it in a comment on this Reddit thread: <a target="_blank" href="http://www.reddit.com/r/seddit/comments/q146r/authentication_thread_3/">http://www.reddit.com/r/seddit/comments/oyh0y/authentication_thread_2/</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                        When you're done, click this button to continue:
+                                        </p>
+                                        <p>
+                                        <input class="reddit_code_posted" type="submit" value="OK, I posted the comment" disabled><br>
+                                        </p>
+                                        <p>...and we'll know who you <i>really</i> are.
+                                        </p>
+                                        <p>
+                                        <span class="reddit_code_posted_msg" style="display:none">
+                                            Verifying your post... this may take up to 30 seconds
+                                        </span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="disabled">
+                                            Finally, set a password so you don't have to go through the same process next time:
+                                        </p>
+                                        <p>
+                                            <form method="get" action="" class="form-reg">
+                                                <input type="hidden" name="usersig">
+                                                <span class="labelpair">
+                                                    <label>Username: </label>
+                                                    <input type="text" value="(Auto-filled)" name="fake-username" disabled>
+                                                    <input type="hidden" name="username">
+                                                </span><br><br>
+                                                <span class="labelpair">
+                                                    <label>Password: </label>
+                                                    <input type="password" name="password" disabled>
+                                                </span>
+                                                <input type="submit" value="Set Password" disabled>
+                                            </form>
+                                        </p>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        <br>
+                        <h2><i>Not affiliated with reddit.com</i></h2>
+	                </div>
+                </div>
+            </div>
+            <div id="col_prototype_roompicker" class="column column-roompicker">
+                <div class="closer"></div>
+				<div class="inner_container">
+                    <h1 class="title">Join a Room</h1>
+	                <div class="content">
+                        <form method="post" action=".">
+                            <span class="label_pair">
+                                <label>Join a room: </label>
+                                <input type="text" name="room_name">
+                            </span>
+                            <input type="submit" value="Join">
+                        </form>
+                        <div class="suggestions">
+                            <div class="loading_suggestions">Loading suggestions...</div>
+                            <div class="top_rooms" style="display:none">
+                                <span class="title">Top rooms:</span>
+                                <ul></ul>
+                            </div>
+                            <br>
+                            <div class="interest_rooms" style="display:none">
+                                <span class="title">Suggested rooms:</span>
+                                <ul></ul>
+                            </div>
+                        </div>
+	                </div>
+				</div>
+            </div>
+            <div id="col_prototype_room" class="column column-roomlike column-room">
+                <div class="closer"></div>
+                <div class="inner_container">
+                	<h1 class="title"></h1>
+	                <div class="content">
+                        <div class="messages_box">
+                            <div class="room_topbar">
+                                <span class="room_numonline"></span>
+                                <span class="room_menu">
+                                    Menu 
+                                    <span style="font-size:50%">▼ </span>
+                                    <ul class="room_menu_dropdown">
+                                    </ul>
+                                </span>
+                            </div>
+                            <div class="messages">
+
+                                <div class="typing remove_on_leave" style="display:none">
+                                    Your chat partner is typing...
+                                </div>
+                            </div>
+                        </div>
+	                    <div class="send">
+                            <div class="nowrite" style="display:none">
+                                Sign in to chat in this room.
+                            </div>
+	                        <input type="text" class="msg_text text-box" value="" disabled>
+	                        <input class="msg_submit" type="submit" value="Send" disabled>
+	                    </div>
+	                </div>
+                </div>
+                <div class="url_link_modal" style="display:none">
+                    <img src="/images/refly/logo_transparent.png" height="73" width="100">
+                    <h1>Copy this URL:</h1> 
+                    <input class="url" type="text">
+                    <br><br>
+                </div>
+            </div>
+            <div id="col_prototype_about" class="column column-about">
+                <div class="closer"></div>
+				<div class="inner_container">
+					<h1 class="title">FAQ</h1>
+	                <div class="content">
+
+                        <p class="q">What's Seddit?</p>
+                        <p>
+                        Seddit is a website with chatrooms based around Reddit.com. You sign in with your Reddit identity, 
+                        and there's a chatroom corresponding to each subreddit.
+                        </p>
+
+                        <p class="q">Why does Reddit need Seddit?</p>
+                        <p>
+                        Chat complements Reddit's existing features well.
+                        Some subreddits already have an IRC channel, but IRC
+                        is too complicated for most people. 
+                        It's also limiting: by building a custom web interface, Seddit can integrate
+                        with Reddit more deeply than generic services can. For example, moderators of a subreddit
+                        are automatically moderators of the corresponding chatroom on Seddit.
+                        </p>
+
+                        <p class="q">Can I connect with another client?</p>
+                        <p>
+                        Yes. Seddit.com uses the standard XMPP protocol, also called Jabber. You can connect
+                        with Adium, Pidgin, Colloquy, or other clients. The server is "chat.www.seddit.com",
+                        so your username will look like "someone@chat.www.seddit.com". You can use
+                        your Reddit password, or set a password on this site first.
+                        </p>
+
+                        <p class="q">What's the name mean?</p>
+                        <p>
+                        "Said it", like how Reddit is "Read it".
+                        </p>
+
+
+                        <p class="q">Who made Seddit?</p>
+                        <p>
+                        I'm <a href="http://www.you.com/" target="_blank">Andrew</a>. Feel free to 
+                        <a href="mailto:you+seddit@gmail.com">email me</a>.
+                        There's also <a href="http://www.twitter.com/seddit" target="_blank">a Twitter account, @seddit</a>.
+                        </p>
+
+                        <p class="q">What's it built on?</p>
+                        <p>
+                        Strophe.js and ejabberd do most of the work. There's also some nginx, Django, PostgreSQL, and AWS.
+                        </p>
+	                </div>
+				</div>
+            </div>
+            <div id="col_prototype_pm" class="column column-roomlike column-pm">
+                <div class="closer"></div>
+                <div class="inner_container">
+                	<h1 class="title"></h1>
+	                <div class="content">
+                        <div class="messages_box">
+                            <div class="messages">
+                                <div class="typing remove_on_leave" style="display:none">
+                                    Your chat partner is typing...
+                                </div>
+                            </div>
+                        </div>
+	                    <div class="send">
+                            <div class="nowrite" style="display:none">
+                                Sign in to send a private message.
+                            </div>
+	                        <input type="text" class="msg_text text-box" value="" disabled>
+	                        <input class="msg_submit" type="submit" value="Send" disabled>
+	                    </div>
+	                </div>
+                </div>
+                <div class="url_link_modal" style="display:none">
+                    <img src="/images/refly/logo_transparent.png" height="27" width="144">
+                    <h1>Copy this URL:</h1> 
+                    <input class="url" type="text">
+                    <br><br>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            Follow <a href="http://twitter.com/seddit" target="_blank">@seddit</a> &mdash; Contact <a href="mailto:you@gmail.com">you@gmail.com</a> 
+        </div>
+        <!-- START_SCRIPTS -->
+        <script type="text/javascript" src="/js/strophe.js"></script>
+        <script type="text/javascript" src="/js/jquery-1.7.1.js"></script>
+        <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="/js/jquery.simplemodal-1.3.5.js"></script>
+        <script type="text/javascript" src="/js/ba-linkify.js"></script>
+        <script type="text/javascript" src="/js/global.js"></script>
+        <script type="text/javascript" src="/js/fbc/header.js"></script>
+        <script type="text/javascript" src="/js/fbc/Globals.js"></script>
+        <script type="text/javascript" src="/js/fbc/GlobalError.js"></script>
+        <script type="text/javascript" src="/js/fbc/API.js"></script>
+        <script type="text/javascript" src="/js/fbc/User.js"></script>
+        <script type="text/javascript" src="/js/fbc/RoomManager.js"></script>
+        <script type="text/javascript" src="/js/fbc/Strophe.js"></script>
+        <script type="text/javascript" src="/js/fbc/RoomDB.js"></script>
+        <script type="text/javascript" src="/js/fbc/Room.js"></script>
+        <script type="text/javascript" src="/js/fbc/Auth.js"></script>
+        <script type="text/javascript" src="/js/fbc/UI.js"></script>
+        <script type="text/javascript" src="/js/fbc/ColumnPrototype.js"></script>
+        <script type="text/javascript" src="/js/fbc/PMColumn.js"></script>
+        <script type="text/javascript" src="/js/fbc/RoomColumn.js"></script>
+        <script type="text/javascript" src="/js/fbc/RoomPickerColumn.js"></script>
+        <script type="text/javascript" src="/js/fbc/LoginColumn.js"></script>
+        <script type="text/javascript" src="/js/fbc/AboutColumn.js"></script>
+        <script type="text/javascript" src="/js/fbc/Column.js"></script>
+        <script type="text/javascript" src="/js/fbc/ColumnManager.js"></script>
+        <script type="text/javascript" src="/js/fbc/init.js"></script>
+        <!-- END_SCRIPTS -->
+    </body>
+</html>
