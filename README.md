@@ -1,6 +1,10 @@
 # About #
 This is the source code to http://www.seddit.com/. It includes an XMPP server that accepts Reddit credentials, and an HTML/JS chat client.
 
+Seddit is a website with chatrooms based around Reddit.com. You sign in with your Reddit identity, and there's a chatroom corresponding to each subreddit.
+
+Moderators of a subreddit are automatically moderators of the corresponding chatroom on Seddit. Users can connect using the web client or their own preferred Jabber/XMPP client, such Pidgin, Adium, or Colloquy.
+
 # Installation #
  1. fork and clone
  2. `cd server`
@@ -13,4 +17,4 @@ This is the source code to http://www.seddit.com/. It includes an XMPP server th
  9. From your local checkout, make sure you have Fabric and jinja2 installed. (`pip install Fabric jinja2`)
  10. `fab stage_dev bootstrap_everything`
 
-That's it, your server should now be running the site.
+Your server should now be running the site.
