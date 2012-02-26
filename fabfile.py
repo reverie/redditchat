@@ -16,7 +16,7 @@ from fabric.contrib.files import upload_template as orig_upload_template
 # Stuff you're likely to change
 PROJECT_NAME = 'redditchat' # If this changes, change ejabberd_extauth
 DOMAIN = assert False # e.g. 'seddit.com'
-GIT_CLONE_PATH = assert False #e.g. 'reverie/FlyByChat.git'
+GIT_CLONE_PATH = assert False #e.g. 'reverie/redditchat.git'
 PRODUCTION_USERNAME = 'ubuntu'
 PRODUCTION_HOST = DOMAIN # Change this to an IP if your DNS isn't resolving yet
 ADMIN_EMAIL = assert False # e.g. 'you@gmail.com'
@@ -95,17 +95,13 @@ def home_dir(*args):
 #
 
 def stage_dev():
-    global DOMAIN
-    DOMAIN = 'sayyit.com'
-    env.user = 'root'
+    env.user = PRODUCTION_USERNAME
     env.stage = {
         'hostname': 'dev.' + DOMAIN
     }
     env.hosts = [env.stage['hostname']]
 
 def stage_staging():
-    global DOMAIN
-    DOMAIN = 'sayyit.com'
     env.user = PRODUCTION_USERNAME
     env.stage = {
         'hostname': 'staging.' + DOMAIN
