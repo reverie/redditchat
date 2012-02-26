@@ -1,3 +1,6 @@
+# About #
+This is the source code to http://www.seddit.com/. It includes an XMPP server that accepts Reddit credentials, and an HTML/JS chat client.
+
 # Installation #
  1. fork and clone
  2. `cd server`
@@ -11,4 +14,3 @@
  10. `fab stage_dev bootstrap_everything`
 
 That's it, your server should now be running the site.
-
