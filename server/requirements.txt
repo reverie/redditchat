@@ -10,4 +10,4 @@ python-memcached==1.48
 oauth2==1.5.211
 urllib3==1.2.2
 beautifulsoup4==4.0.0b3
-lxml==2.3.3
+lxml==4.6.2
