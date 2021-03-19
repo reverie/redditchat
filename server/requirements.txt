@@ -5,7 +5,7 @@ django-picklefield==0.1.9
 django-registration==0.7
 psycopg2==2.4.4
 virtualenv==1.7
-Jinja2==2.6
+Jinja2==2.11.3
 python-memcached==1.48
 oauth2==1.5.211
 urllib3==1.2.2
